@@ -111,7 +111,7 @@
     <!-- Start Screen -->
     <div id="start-screen">
       <h2>Instructions 📝</h2>
-      <p>You can only answer once. Your score will be saved to the leaderboard. andbesikma!</p>
+      <p>You can only answer once. Your score will be saved to the leaderboard forever. andbesikma</p>
       <h2>Enter Your Name </h2>
       <input type="text" id="playerName" placeholder="Your name here..." />
       <button onclick="startQuiz()">Start Quiz</button>
@@ -186,11 +186,21 @@
     const leaderboardEl = document.getElementById("leaderboard-list");
     const music = document.getElementById("bg-music");
 
-    let leaderboard = [];
+    // Load leaderboard & used players from localStorage
+    let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+    let usedPlayers = JSON.parse(localStorage.getItem("usedPlayers")) || [];
+    updateLeaderboard();
 
     function startQuiz() {
       const nameInput = document.getElementById("playerName").value.trim();
       if (!nameInput) { alert("Please enter your name!"); return; }
+
+      // Prevent multiple attempts
+      if (usedPlayers.includes(nameInput)) {
+        alert("Sorry, you already played once!");
+        return;
+      }
+
       player = nameInput;
       startScreen.classList.add("hidden");
       quizScreen.classList.remove("hidden");
@@ -228,7 +238,13 @@
       quizScreen.classList.add("hidden");
       resultEl.classList.remove("hidden");
       scoreEl.textContent = `${player}, you scored ${score} / ${quizQuestions.length}`;
+
       leaderboard.push({ name: player, score: score });
+      usedPlayers.push(player);
+
+      localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+      localStorage.setItem("usedPlayers", JSON.stringify(usedPlayers));
+
       updateLeaderboard();
     }
 
