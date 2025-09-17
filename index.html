@@ -3,84 +3,248 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Goodnight, My Love 💖</title>
+  <title>Balanes and Buico Quiz</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      background: linear-gradient(to bottom right, #d8b4fe, #fcd5ce);
-      color: #6b21a8;
-      text-align: center;
+      font-family: 'Arial Black', sans-serif;
+      background: linear-gradient(135deg, #0ff, #0f0, #ff0, #f0f, #f00);
+      background-size: 400% 400%;
+      animation: neonBG 10s infinite alternate;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      margin: 0;
     }
-
-    h1 {
-      font-size: 2.8em;
-      margin-bottom: 0.5em;
+    @keyframes neonBG {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
     }
-
-    button {
-      padding: 12px 28px;
-      font-size: 1.2em;
-      background-color: #a855f7;
-      color: white;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      transition: background-color 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #7e22ce;
-    }
-
-    .letter {
-      max-width: 600px;
-      background: #fdf4ff;
+    .quiz-container {
+      background: rgba(0, 0, 0, 0.85);
       padding: 20px;
-      border-radius: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      margin: 20px;
-      display: none;
-      text-align: left;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #0ff, 0 0 40px #f0f;
+      width: 500px;
+      text-align: center;
+      color: white;
     }
-
-    .footer {
-      margin-top: 30px;
-      font-size: 1em;
-      font-style: italic;
+    h1 {
+      font-size: 26px;
+      margin-bottom: 10px;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+    }
+    button {
+      background: #fff;
+      color: black;
+      font-weight: bold;
+      border: none;
+      padding: 12px;
+      margin: 8px 0;
+      width: 100%;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 0 10px #888;
+    }
+    button:hover {
+      background: #ddd;
+      box-shadow: 0 0 20px #fff;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin: 10px 0;
+      border: 2px solid #0ff;
+      border-radius: 8px;
+      background: black;
+      color: #0ff;
+      text-align: center;
+    }
+    .hidden { display: none; }
+    .message {
+      font-size: 40px;
+      font-weight: bold;
+      margin: 20px 0;
+      animation: pop 0.6s ease;
+    }
+    @keyframes pop {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .correct { color: #0f0; text-shadow: 0 0 15px #0f0; }
+    .wrong { color: #f00; text-shadow: 0 0 15px #f00; }
+    .music-btn {
+      margin-top: 10px;
+      background: #ff0;
+      color: black;
+      font-weight: bold;
+      box-shadow: 0 0 10px #ff0;
+    }
+    .leaderboard {
+      margin-top: 20px;
+      text-align: left;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .leaderboard h3 {
+      color: #0ff;
+      margin-bottom: 5px;
+    }
+    .leaderboard ul {
+      padding: 0;
+      list-style: none;
+    }
+    .leaderboard li {
+      background: rgba(255,255,255,0.1);
+      margin: 3px 0;
+      padding: 5px;
+      border-radius: 6px;
     }
   </style>
 </head>
 <body>
-  <h1>Goodnight, Baby 🌙</h1>
-  <button onclick="document.querySelector('.letter').style.display='block'; this.style.display='none';">
-    Click to open your goodnight message 💌
-  </button>
+  <div class="quiz-container">
+    <h1>Balanes and Buico Quiz (Em-tech,Bio,Con-arts)</h1>
 
-  <div class="letter">
-    <p>Hi Baby,</p>
-    <p>
-      As the stars light up the sky and the world slows down, all I can think about is you. Even with all this distance
-      between us, you somehow manage to make me feel so close, like you're right here whispering in my ear.
-    </p>
-    <p>
-      I hope your day was amazing but if it wasn’t, just imagine my arms around you, holding you tight, maybe.
-      kissing that stress away one slow kiss at a time. I’d do it in a heartbeat if I could.
-    </p>
-    <p>
-      Sleep peacefully tonight, knowing that you’ve completely taken over my heart and maybe a few of my dreams too 😉.
-      I wuv you so much my darling cutie pie baby mwuah mwauh mwauh mawuh mawuh mwuahhhhhhhh💋
-    </p>
-    <p style="text-align: right;">— Love, Your Boyfriend 💗</p>
+    <!-- Start Screen -->
+    <div id="start-screen">
+      <h2>Instructions 📝</h2>
+      <p>You can only answer once. Your score will be saved to the leaderboard. andbesikma!</p>
+      <h2>Enter Your Name </h2>
+      <input type="text" id="playerName" placeholder="Your name here..." />
+      <button onclick="startQuiz()">Start Quiz</button>
+      <button class="music-btn" onclick="toggleMusic()">🎵 Play/Pause Music</button>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quiz-screen" class="hidden">
+      <h2 id="question">Loading...</h2>
+      <div id="options"></div>
+      <div id="message"></div>
+    </div>
+
+    <!-- Result Screen -->
+    <div id="result" class="hidden">
+      <h2>Quiz Finished 🎉</h2>
+      <p id="score"></p>
+      <div class="leaderboard">
+        <h3>Leaderboard 🏆</h3>
+        <ul id="leaderboard-list"></ul>
+      </div>
+    </div>
   </div>
 
-  <div class="footer">Dream of me, Wifeyy. I’ll be waiting there for you. 💫💋</div>
+  <!-- Background Music -->
+  <audio id="bg-music" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const quizQuestions = [
+      { q: "Which of the following best describes contemporary art?", options: ["Art of the ancient period","Art that emerged in the late 1800s","Art that is “with the times”","Art that focuses only on realism"], answer: "Art that is “with the times”" },
+      { q: "An art made indoors or outdoors where space is transformed into a three-dimensional experience is called:", options: ["Appropriation","Bricolage","Installation","Pastiche"], answer: "Installation" },
+      { q: "Which principle of design refers to the pleasing arrangement of parts that result in a united whole?", options: ["Balance","Harmony","Rhythm","Proportion"], answer: "Harmony" },
+      { q: "Which element of art is defined as the degree of lightness or darkness of a color?", options: ["Value","Texture","Line","Shape"], answer: "Value" },
+      { q: "What do we call an artwork that utilizes a mix of fine art and commercial art?", options: ["Pastiche","Realism","Abstraction","Non-objectivism"], answer: "Pastiche" },
+      { q: "A style wherein the artist breaks apart a subject and rearranges it differently is called:", options: ["Abstraction","Distortion","Realism","Non-objectivism"], answer: "Abstraction" },
+      { q: "Which of the following is NOT a principle of design?", options: ["Balance","Line","Movement","Harmony"], answer: "Line" },
+      { q: "An artwork also known as assemblage using recovered objects is:", options: ["Appropriation","Bricolage","Installation","Pastiche"], answer: "Bricolage" },
+      { q: "Which art form arranges dance steps to create a story?", options: ["Choreography","Cinema","Literary composition","Visual design"], answer: "Choreography" },
+      { q: "The most striking element that usually catches the viewer’s eye is:", options: ["Color","Line","Space","Texture"], answer: "Color" },
+      { q: "Which of the following is the longest phase of the cell cycle?", options: ["Mitosis","Interphase","Cytokinesis","Meiosis"], answer: "Interphase" },
+      { q: "During which checkpoint is DNA replication verified?", options: ["G1 checkpoint","S checkpoint","G2 checkpoint","M checkpoint"], answer: "G2 checkpoint" },
+      { q: "What ensures chromosomes are aligned before separation?", options: ["G1 checkpoint","S checkpoint","G2 checkpoint","M checkpoint"], answer: "M checkpoint" },
+      { q: "Which process produces two identical daughter cells?", options: ["Meiosis","Fertilization","Mitosis","Crossing-over"], answer: "Mitosis" },
+      { q: "In which phase of mitosis do chromosomes line up at the center?", options: ["Prophase","Metaphase","Anaphase","Telophase"], answer: "Metaphase" },
+      { q: "During Anaphase of mitosis, what happens?", options: ["Nuclear envelope reforms","Chromosomes condense","Sister chromatids separate","Crossing-over occurs"], answer: "Sister chromatids separate" },
+      { q: "Which process results in four non-identical gametes?", options: ["Mitosis","Meiosis","Cytokinesis","Interphase"], answer: "Meiosis" },
+      { q: "What happens during Prophase I of Meiosis?", options: ["Cytoplasm divides","Homologous chromosomes pair & crossing-over happens","Sister chromatids separate","DNA replication"], answer: "Homologous chromosomes pair & crossing-over happens" },
+      { q: "The chromosome number is halved during:", options: ["Mitosis","Meiosis I","Meiosis II","Cytokinesis"], answer: "Meiosis I" },
+      { q: "Why is meiosis important for sexual reproduction?", options: ["Creates identical cells","Repairs DNA","Reduces chromosome number & creates variation","Maintains chromosome number"], answer: "Reduces chromosome number & creates variation" },
+      { q: "Which best describes Web 1.0?", options: ["Dynamic page","Static page with no interaction","Tagging & hashtags","AI-based web service"], answer: "Static page with no interaction" },
+      { q: "Which Web 2.0 feature allows tagging with hashtags?", options: ["Rich User Experience","Folksonomy","Mass Participation","Long Tail"], answer: "Folksonomy" },
+      { q: "Who coined the term Semantic Web?", options: ["Steve Jobs","Bill Gates","Tim Berners-Lee","Mark Zuckerberg"], answer: "Tim Berners-Lee" },
+      { q: "Which is NOT a problem with Web 3.0?", options: ["Compatibility","Vagueness","Security","Accessibility"], answer: "Accessibility" },
+      { q: "Which ICT trend refers to combining tech advancements?", options: ["Convergence","Mobile Technology","Assistive Media","Social Media"], answer: "Convergence" },
+      { q: "Which is an example of Assistive Media?", options: ["Instagram","Audio recordings for the visually impaired","Messenger","Google Maps"], answer: "Audio recordings for the visually impaired" },
+      { q: "The ILOVEYOU virus is what type of malware?", options: ["Trojan","Spyware","Worm","Adware"], answer: "Worm" },
+      { q: "A malicious program disguised as useful is:", options: ["Virus","Trojan","Spyware","Worm"], answer: "Trojan" },
+      { q: "Which malware secretly runs in the background?", options: ["Adware","Spyware","Spam","Trojan"], answer: "Spyware" },
+      { q: "Which best defines Technology Literacy?", options: ["Ability to play games","Use digital tools to access/manage info","Fix hardware","Browse social media"], answer: "Use digital tools to access/manage info" }
+    ];
+
+    let currentQ = 0, score = 0, player = "";
+    const startScreen = document.getElementById("start-screen");
+    const quizScreen = document.getElementById("quiz-screen");
+    const resultEl = document.getElementById("result");
+    const questionEl = document.getElementById("question");
+    const optionsEl = document.getElementById("options");
+    const messageEl = document.getElementById("message");
+    const scoreEl = document.getElementById("score");
+    const leaderboardEl = document.getElementById("leaderboard-list");
+    const music = document.getElementById("bg-music");
+
+    let leaderboard = [];
+
+    function startQuiz() {
+      const nameInput = document.getElementById("playerName").value.trim();
+      if (!nameInput) { alert("Please enter your name!"); return; }
+      player = nameInput;
+      startScreen.classList.add("hidden");
+      quizScreen.classList.remove("hidden");
+      loadQuestion();
+      music.play();
+    }
+
+    function loadQuestion() {
+      questionEl.textContent = quizQuestions[currentQ].q;
+      optionsEl.innerHTML = "";
+      messageEl.innerHTML = "";
+      quizQuestions[currentQ].options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.textContent = opt;
+        btn.onclick = () => handleAnswer(opt);
+        optionsEl.appendChild(btn);
+      });
+    }
+
+    function handleAnswer(choice) {
+      if (choice === quizQuestions[currentQ].answer) {
+        score++;
+        messageEl.innerHTML = `<div class="message correct">GREAT!! 🎉</div>`;
+      } else {
+        messageEl.innerHTML = `<div class="message wrong">VISAYA 🤣</div>`;
+      }
+      setTimeout(() => {
+        currentQ++;
+        if (currentQ < quizQuestions.length) loadQuestion();
+        else endQuiz();
+      }, 1000);
+    }
+
+    function endQuiz() {
+      quizScreen.classList.add("hidden");
+      resultEl.classList.remove("hidden");
+      scoreEl.textContent = `${player}, you scored ${score} / ${quizQuestions.length}`;
+      leaderboard.push({ name: player, score: score });
+      updateLeaderboard();
+    }
+
+    function updateLeaderboard() {
+      leaderboardEl.innerHTML = "";
+      leaderboard.forEach(entry => {
+        const li = document.createElement("li");
+        li.textContent = `${entry.name} - ${entry.score}`;
+        leaderboardEl.appendChild(li);
+      });
+    }
+
+    function toggleMusic() {
+      if (music.paused) music.play();
+      else music.pause();
+    }
+  </script>
 </body>
 </html>
